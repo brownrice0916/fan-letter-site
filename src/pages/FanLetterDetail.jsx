@@ -10,18 +10,12 @@ const FanLetterDetail = ({
 }) => {
   const params = useParams();
   const navigate = useNavigate();
+
   const currentLetter = selectedMember.fanLetters.find((item) => {
-    console.log(item.id, params.id);
     return item.id === params.id;
   });
 
   const [letterContent, setLetterContent] = useState(currentLetter.content);
-  console.log("members", artists, selectedMember);
-
-  console.log(params.id);
-  console.log("artists", selectedMember);
-
-  console.log("currentLetter", currentLetter);
 
   const handleEdit = () => {
     const editedSelectedMember = selectedMember.fanLetters.map((letter) =>
@@ -42,6 +36,7 @@ const FanLetterDetail = ({
     );
     setArtists(newArtist);
     setSelectedMember({ ...selectedMember, fanLetters: editedSelectedMember });
+    navigate(`/fanletter/${currentArtist.id}`);
   };
 
   const handleDelete = () => {
@@ -65,8 +60,6 @@ const FanLetterDetail = ({
       }
       return artist;
     });
-
-    console.log(newArtist);
 
     setArtists(newArtist);
     setSelectedMember({

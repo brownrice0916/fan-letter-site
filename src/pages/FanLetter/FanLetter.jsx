@@ -1,60 +1,15 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import styled from "styled-components";
+import {
+  StyledFanLetterCard,
+  StyledForm,
+  StyledIntro,
+  StyledMembers,
+  StyledMemberCard,
+  StyledFanLetterWrap,
+} from "./FanLetter.styled";
 import { v4 as uuidv4 } from "uuid";
 
-const StyledIntro = styled.section`
-  background-color: pink;
-  height: 300px;
-`;
-
-const StyledMembers = styled.div`
-  display: flex;
-  > ul {
-    display: flex;
-    text-align: center;
-    // justify-content: space-between;
-    width: auto;
-    margin: 0 auto;
-    align-items: center;
-  }
-`;
-
-const StyledMemberCard = styled.li`
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  background-color: ${(props) => (props.$isSelected ? "yellow" : "gray")};
-  cursor: pointer;
-`;
-
-const StyledForm = styled.form`
-  margin: 0 auto;
-  text-align: center;
-  padding: 20px;
-  background-color: #ededed;
-  margin-top: 20px;
-  > div {
-    margin-bottom: 20px;
-  }
-  > input[type="submit"] {
-    cursor: pointer;
-  }
-`;
-
-const StyledFanLetterWrap = styled.ul`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const StyledFanLetterCard = styled.li`
-  border: 1px solid black;
-  width: 500px;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  padding: 20px;
-`;
 const FanLetter = ({
   artists,
   setArtists,
@@ -64,19 +19,21 @@ const FanLetter = ({
 }) => {
   const params = useParams();
 
-  console.log("artists", artists);
   const currentArtist = artists.find((item) => item.id === parseInt(params.id));
 
   useEffect(() => {
     setCurrentArtist(artists.find((item) => item.id === parseInt(params.id)));
     setSelectedMember((prev) => (prev ? prev : currentArtist.members[0]));
-  }, [currentArtist, setSelectedMember, setCurrentArtist, params.id]);
+  }, [currentArtist, setSelectedMember, setCurrentArtist, params.id, artists]);
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const nickname = e.target.nickname.value;
     const content = e.target.content.value;
 
+    if (nickname === "" || content === "") {
+      return;
+    }
     const addedLetters = { nickname, content, id: uuidv4(), date: new Date() };
     const changedArtists = artists.map((artist) =>
       artist.id === currentArtist.id
@@ -98,6 +55,8 @@ const FanLetter = ({
       ...selectedMember,
       fanLetters: [...selectedMember.fanLetters, addedLetters],
     });
+    e.target.nickname.value = "";
+    e.target.content.value = "";
 
     // 선택된 멤버의 fanLetters 업데이트
   };
