@@ -9,10 +9,11 @@ import { datas } from "./artists";
 const Router = () => {
   const [artists, setArtists] = useState(datas);
   const [selectedMember, setSelectedMember] = useState();
+  const [currentArtist, setCurrentArtist] = useState(datas[0]);
   console.log(datas);
   return (
     <BrowserRouter>
-      <Layout>
+      <Layout setSelectedMember={setSelectedMember}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -23,6 +24,7 @@ const Router = () => {
                 selectedMember={selectedMember}
                 artists={artists}
                 setArtists={setArtists}
+                setCurrentArtist={setCurrentArtist}
               />
             }
           />
@@ -33,6 +35,8 @@ const Router = () => {
                 selectedMember={selectedMember}
                 artists={artists}
                 setArtists={setArtists}
+                currentArtist={currentArtist}
+                setSelectedMember={setSelectedMember}
               />
             }
           />

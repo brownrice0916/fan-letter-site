@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { datas } from "../shared/artists";
@@ -26,8 +25,6 @@ const StyledArtistList = styled.section`
   }
 `;
 
-const moveToFanPage = (id) => {};
-
 const Home = () => {
   return (
     <>
@@ -38,7 +35,7 @@ const Home = () => {
         <h1>아티스트리스트</h1>
         <ul>
           {datas.map((item) => (
-            <li onClick={moveToFanPage} key={item.id}>
+            <li key={item.id}>
               <Link to={`/fanletter/${item.id}`}>{item.name}</Link>
             </li>
           ))}

@@ -22,11 +22,13 @@ const StyledFooter = styled.footer`
   justify-content: center;
 `;
 
-const Layout = ({ children }) => {
+const Layout = ({ children, setSelectedMember }) => {
   return (
     <div>
       <StyledHeader>
-        <Link to="/">header</Link>
+        <Link to="/" onClick={() => setSelectedMember("")}>
+          header
+        </Link>
       </StyledHeader>
       {children}
       <StyledFooter>푸터임</StyledFooter>
