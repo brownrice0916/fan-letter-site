@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
@@ -7,6 +8,9 @@ const StyledHeader = styled.header`
   padding: 12px;
   display: flex;
   align-items: center;
+  > h1 {
+    cursor: pointer;
+  }
 `;
 
 const StyledFooter = styled.footer`
@@ -22,7 +26,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <StyledHeader>
-        <h1>header</h1>
+        <Link to="/">header</Link>
       </StyledHeader>
       {children}
       <StyledFooter>푸터임</StyledFooter>

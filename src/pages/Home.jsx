@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { artists } from "../shared/artists";
+import { datas } from "../shared/artists";
 
 const StyledIntro = styled.section`
   background-color: pink;
@@ -37,7 +37,7 @@ const Home = () => {
       <StyledArtistList>
         <h1>아티스트리스트</h1>
         <ul>
-          {artists.map((item) => (
+          {datas.map((item) => (
             <li onClick={moveToFanPage} key={item.id}>
               <Link to={`/fanletter/${item.id}`}>{item.name}</Link>
             </li>
