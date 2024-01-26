@@ -1,27 +1,17 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-const FanLetterDetail = ({
-  artists,
-  selectedMember,
-  setArtists,
-  currentArtist,
-  setSelectedMember,
-}) => {
+const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
   const params = useParams();
   const navigate = useNavigate();
 
   const currentLetter = currentArtist.fanLetters.find((item) => {
     return item.id === parseInt(params.id);
   });
-  //console.log(currentLetter);
 
   const [letterContent, setLetterContent] = useState(currentLetter.content);
 
   const handleEdit = () => {
-    // const editedSelectedMember = currentArtist.fanLetters.map((letter) =>
-    //   letter.id === params.id ? { ...letter, content: letterContent } : letter
-    // );
     console.log(letterContent);
     const newArtist = artists.map((artist) =>
       artist.id === currentArtist.id

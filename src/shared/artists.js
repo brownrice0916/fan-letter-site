@@ -4,30 +4,37 @@ export const datas = [
   {
     id: 1,
     name: "오마이걸",
+    img: process.env.PUBLIC_URL + "/assets/ohMyGirl.jpeg",
     members: [
       {
         id: 1,
         name: "효정",
+        img: process.env.PUBLIC_URL + "/assets/ohmygirl/hyojeong.jpeg",
       },
       {
         id: 2,
         name: "미미",
+        img: process.env.PUBLIC_URL + "/assets/ohmygirl/mimi.jpeg",
       },
       {
         id: 3,
         name: "유아",
+        img: process.env.PUBLIC_URL + "/assets/ohmygirl/yooa.jpeg",
       },
       {
         id: 4,
         name: "승희",
+        img: process.env.PUBLIC_URL + "/assets/ohmygirl/seunghee.jpeg",
       },
       {
         id: 5,
         name: "유빈",
+        img: process.env.PUBLIC_URL + "/assets/ohmygirl/yoobin.jpeg",
       },
       {
         id: 6,
         name: "아린",
+        img: process.env.PUBLIC_URL + "/assets/ohmygirl/arin.jpeg",
       },
     ],
     fanLetters: [
@@ -86,26 +93,32 @@ export const datas = [
   {
     id: 2,
     name: "뉴진스",
+    img: process.env.PUBLIC_URL + "/assets/newJeans.jpeg",
     members: [
       {
         id: 1,
         name: "민지",
+        img: process.env.PUBLIC_URL + "/assets/newjeans/minji.jpeg",
       },
       {
         id: 2,
         name: "하니",
+        img: process.env.PUBLIC_URL + "/assets/newjeans/hani.jpeg",
       },
       {
         id: 3,
         name: "다니엘",
+        img: process.env.PUBLIC_URL + "/assets/newjeans/daniel.jpeg",
       },
       {
         id: 4,
         name: "해린",
+        img: process.env.PUBLIC_URL + "/assets/newjeans/hyerin.jpeg",
       },
       {
         id: 5,
         name: "혜인",
+        img: process.env.PUBLIC_URL + "/assets/newjeans/hyein.jpeg",
       },
     ],
     fanLetters: [

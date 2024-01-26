@@ -7,6 +7,7 @@ import {
   StyledMembers,
   StyledMemberCard,
   StyledFanLetterWrap,
+  StyledFanPage,
 } from "./FanLetter.styled";
 import { v4 as uuidv4 } from "uuid";
 
@@ -43,11 +44,11 @@ const FanLetter = ({
           fanLetters: [
             ...artist.fanLetters,
             {
-              id: uuidv4(),
+              id: artist.fanLetters[artist.fanLetters.length - 1].id + 1,
               nickname,
               content,
               writedTo: selectedMember.name,
-              createdAt: new Date(),
+              createdAt: new Date().toISOString(),
             },
           ],
         };
@@ -65,8 +66,8 @@ const FanLetter = ({
   };
 
   return (
-    <>
-      <StyledIntro>
+    <StyledFanPage>
+      <StyledIntro img={currentArtist.img}>
         <h1>{currentArtist.name}</h1>
       </StyledIntro>
 
@@ -83,6 +84,7 @@ const FanLetter = ({
                 // selectMember(member);
               }}
             >
+              <img src={member.img} alt={member.name} />
               {member.name}
             </StyledMemberCard>
           ))}
@@ -94,11 +96,11 @@ const FanLetter = ({
         }}
       >
         <div>
-          <label>제목</label>
+          <label>닉네임:</label>
           <input type="text" name="nickname" />
         </div>
         <div>
-          <label>내용</label>
+          <label>내용:</label>
           <textarea type="content" name="content" />
         </div>
         <div>
@@ -133,17 +135,30 @@ const FanLetter = ({
         {selectedMember &&
           currentArtist.fanLetters
             .filter((fanLetter) => fanLetter.writedTo === selectedMember.name)
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .map((fanLetter) => (
               <StyledFanLetterCard key={fanLetter.id}>
                 <Link to={`/fanletterDetail/${fanLetter.id}`}>
-                  <h3>{fanLetter.nickname}</h3>
-                  <p>{fanLetter.content}</p>
-                  <p>{fanLetter.createdAt.toLocaleString("ko-KR")}</p>
+                  <div className="imgWrap">
+                    <img
+                      src={
+                        fanLetter.avatar
+                          ? fanLetter.avatar
+                          : `../../assets/basic_profile.jpeg`
+                      }
+                      alt={fanLetter.nickname}
+                    />
+                  </div>
+                  <div className="contents">
+                    <h3>{fanLetter.nickname}</h3>
+                    <p>{fanLetter.createdAt.toLocaleString("ko-KR")}</p>
+                    <p>{fanLetter.content}</p>
+                  </div>
                 </Link>
               </StyledFanLetterCard>
             ))}
       </StyledFanLetterWrap>
-    </>
+    </StyledFanPage>
   );
 };
 
