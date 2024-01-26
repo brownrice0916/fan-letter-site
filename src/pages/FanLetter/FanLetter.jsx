@@ -25,6 +25,7 @@ const FanLetter = ({
     setCurrentArtist(artists.find((item) => item.id === parseInt(params.id)));
     setSelectedMember((prev) => (prev ? prev : currentArtist.members[0]));
   }, [currentArtist, setSelectedMember, setCurrentArtist, params.id, artists]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -34,27 +35,29 @@ const FanLetter = ({
     if (nickname === "" || content === "") {
       return;
     }
-    const addedLetters = { nickname, content, id: uuidv4(), date: new Date() };
-    const changedArtists = artists.map((artist) =>
-      artist.id === currentArtist.id
-        ? {
-            ...artist,
-            members: artist.members.map((member) =>
-              member.id === selectedMember.id
-                ? {
-                    ...member,
-                    fanLetters: [...member.fanLetters, addedLetters],
-                  }
-                : member
-            ),
-          }
-        : artist
-    );
-    setArtists(changedArtists);
-    setSelectedMember({
-      ...selectedMember,
-      fanLetters: [...selectedMember.fanLetters, addedLetters],
+
+    const changedArtists = artists.map((artist) => {
+      if (artist.id === currentArtist.id) {
+        return {
+          ...artist,
+          fanLetters: [
+            ...artist.fanLetters,
+            {
+              id: uuidv4(),
+              nickname,
+              content,
+              writedTo: selectedMember.name,
+              createdAt: new Date(),
+            },
+          ],
+        };
+      } else {
+        return artist;
+      }
     });
+    console.log(changedArtists);
+    setArtists(changedArtists);
+
     e.target.nickname.value = "";
     e.target.content.value = "";
 
@@ -128,15 +131,17 @@ const FanLetter = ({
       </StyledForm>
       <StyledFanLetterWrap>
         {selectedMember &&
-          selectedMember.fanLetters.map((fanLetter) => (
-            <StyledFanLetterCard key={fanLetter.id}>
-              <Link to={`/fanletterDetail/${fanLetter.id}`}>
-                <h3>{fanLetter.nickname}</h3>
-                <p>{fanLetter.content}</p>
-                <p>{fanLetter.date.toLocaleString("ko-KR")}</p>
-              </Link>
-            </StyledFanLetterCard>
-          ))}
+          currentArtist.fanLetters
+            .filter((fanLetter) => fanLetter.writedTo === selectedMember.name)
+            .map((fanLetter) => (
+              <StyledFanLetterCard key={fanLetter.id}>
+                <Link to={`/fanletterDetail/${fanLetter.id}`}>
+                  <h3>{fanLetter.nickname}</h3>
+                  <p>{fanLetter.content}</p>
+                  <p>{fanLetter.createdAt.toLocaleString("ko-KR")}</p>
+                </Link>
+              </StyledFanLetterCard>
+            ))}
       </StyledFanLetterWrap>
     </>
   );

@@ -11,63 +11,52 @@ const FanLetterDetail = ({
   const params = useParams();
   const navigate = useNavigate();
 
-  const currentLetter = selectedMember.fanLetters.find((item) => {
-    return item.id === params.id;
+  const currentLetter = currentArtist.fanLetters.find((item) => {
+    return item.id === parseInt(params.id);
   });
+  //console.log(currentLetter);
 
   const [letterContent, setLetterContent] = useState(currentLetter.content);
 
   const handleEdit = () => {
-    const editedSelectedMember = selectedMember.fanLetters.map((letter) =>
-      letter.id === params.id ? { ...letter, content: letterContent } : letter
-    );
-
+    // const editedSelectedMember = currentArtist.fanLetters.map((letter) =>
+    //   letter.id === params.id ? { ...letter, content: letterContent } : letter
+    // );
+    console.log(letterContent);
     const newArtist = artists.map((artist) =>
       artist.id === currentArtist.id
         ? {
             ...artist,
-            members: artist.members.map((member) =>
-              member.id === selectedMember.id
-                ? { ...member, fanLetters: editedSelectedMember }
-                : member
+            fanLetters: artist.fanLetters.map((letter) =>
+              letter.id === parseInt(params.id)
+                ? { ...letter, content: letterContent }
+                : letter
             ),
           }
         : artist
     );
+    console.log("newArtist", newArtist);
     setArtists(newArtist);
-    setSelectedMember({ ...selectedMember, fanLetters: editedSelectedMember });
     navigate(`/fanletter/${currentArtist.id}`);
   };
 
   const handleDelete = () => {
     const newArtist = artists.map((artist) => {
-      console.log(artist, currentArtist);
+      //console.log(artist, currentArtist);
       if (artist.id === currentArtist.id) {
+        console.log(artist);
         return {
           ...artist,
-          members: artist.members.map((member) => {
-            if (member.id === selectedMember.id) {
-              return {
-                ...member,
-                fanLetters: member.fanLetters.filter(
-                  (fanLetter) => fanLetter.id !== params.id
-                ),
-              };
-            }
-            return member;
-          }),
+          fanLetters: artist.fanLetters.filter(
+            (fanLetter) => fanLetter.id !== parseInt(params.id)
+          ),
         };
       }
       return artist;
     });
 
     setArtists(newArtist);
-    setSelectedMember({
-      ...selectedMember,
-      fanLetters: selectedMember.fanLetters.filter(
-        (fanLetter) => fanLetter.id !== params.id
-      ),
-    });
+
     navigate(`/fanletter/${currentArtist.id}`);
   };
 
@@ -75,10 +64,12 @@ const FanLetterDetail = ({
     <>
       <div>{currentLetter.nickname}</div>
       <textarea
-        onChange={(e) => setLetterContent(e.target.value)}
         value={letterContent}
         type="content"
         name="content"
+        onChange={(event) => {
+          setLetterContent(event.target.value);
+        }}
       ></textarea>
       <button onClick={handleEdit}>수정</button>
       <button onClick={handleDelete}>삭제</button>
