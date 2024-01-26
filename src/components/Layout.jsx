@@ -28,12 +28,9 @@ const StyledFooter = styled.footer`
   /* background-color: orange; */
   padding: 12px;
   display: flex;
+  margin-top: 50px;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
 `;
 
 const Layout = ({ children, setSelectedMember }) => {

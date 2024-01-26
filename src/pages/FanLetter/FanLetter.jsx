@@ -8,8 +8,10 @@ import {
   StyledMemberCard,
   StyledFanLetterWrap,
   StyledFanPage,
+  StyledButton,
 } from "./FanLetter.styled";
-import { v4 as uuidv4 } from "uuid";
+import Avatar from "components/Avatar";
+import CustomButton from "components/CustomButton";
 
 const FanLetter = ({
   artists,
@@ -48,7 +50,7 @@ const FanLetter = ({
               nickname,
               content,
               writedTo: selectedMember.name,
-              createdAt: new Date().toISOString(),
+              createdAt: new Date(),
             },
           ],
         };
@@ -84,7 +86,9 @@ const FanLetter = ({
                 // selectMember(member);
               }}
             >
-              <img src={member.img} alt={member.name} />
+              <div>
+                <img src={member.img} alt={member.name} />
+              </div>
               {member.name}
             </StyledMemberCard>
           ))}
@@ -95,16 +99,16 @@ const FanLetter = ({
           handleSubmit(e);
         }}
       >
-        <div>
+        <div className="inputWrap">
           <label>닉네임:</label>
           <input type="text" name="nickname" />
         </div>
-        <div>
+        <div className="inputWrap">
           <label>내용:</label>
           <textarea type="content" name="content" />
         </div>
         <div>
-          {currentArtist.length > 0 && (
+          {currentArtist && (
             <p>
               누구에게 보내실 건가요?{" "}
               <span>
@@ -129,7 +133,9 @@ const FanLetter = ({
             </p>
           )}
         </div>
-        <input type="submit" value="등록" />
+        <div className="btn_wrap">
+          <CustomButton name="팬레터 등록" />
+        </div>
       </StyledForm>
       <StyledFanLetterWrap>
         {selectedMember &&
@@ -139,19 +145,12 @@ const FanLetter = ({
             .map((fanLetter) => (
               <StyledFanLetterCard key={fanLetter.id}>
                 <Link to={`/fanletterDetail/${fanLetter.id}`}>
-                  <div className="imgWrap">
-                    <img
-                      src={
-                        fanLetter.avatar
-                          ? fanLetter.avatar
-                          : `../../assets/basic_profile.jpeg`
-                      }
-                      alt={fanLetter.nickname}
-                    />
-                  </div>
+                  <Avatar fanLetter={fanLetter}></Avatar>
                   <div className="contents">
                     <h3>{fanLetter.nickname}</h3>
-                    <p>{fanLetter.createdAt.toLocaleString("ko-KR")}</p>
+                    <p>
+                      {new Date(fanLetter.createdAt).toLocaleString("ko-KR")}
+                    </p>
                     <p>{fanLetter.content}</p>
                   </div>
                 </Link>

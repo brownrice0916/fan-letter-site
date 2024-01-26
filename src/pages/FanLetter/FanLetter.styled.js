@@ -23,6 +23,7 @@ export const StyledIntro = styled.section`
 
 export const StyledMembers = styled.div`
   display: flex;
+  margin-top: 20px;
   > ul {
     display: flex;
     text-align: center;
@@ -36,19 +37,22 @@ export const StyledMembers = styled.div`
 export const StyledMemberCard = styled.li`
   width: 100px;
   height: 150px;
-  border-radius: 100%;
 
   box-sizing: initial;
 
   cursor: pointer;
   overflow: hidden;
   margin: 10px;
-  img {
+  > div {
     width: 100px;
     height: 100px;
     border-radius: 100%;
+    overflow: hidden;
     border: ${(props) =>
       props.$isSelected ? "5px solid Yellow" : "5px solid #ededed"};
+  }
+  img {
+    width: 100%;
   }
 `;
 
@@ -57,17 +61,51 @@ export const StyledForm = styled.form`
   //text-align: center;
   padding: 20px;
   background-color: #ededed;
-
   width: 500px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 30px;
   border-radius: 10px;
-  > div {
+  position: relative;
+  .inputWrap {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    label {
+      flex: 1;
+    }
+    input,
+    textarea {
+      flex: 3;
+    }
   }
   > input[type="submit"] {
     cursor: pointer;
+  }
+  .btn_wrap {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+`;
+
+export const StyledButton = styled.button`
+  cursor: pointer;
+  background-color: #4dccc6;
+  background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
+  line-height: 42px;
+  padding: 0;
+  border: none;
+  padding: 2px 20px;
+  border-radius: 5px;
+  :hover {
+    background-color: #89d8d3;
+    background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+  }
+  span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 `;
 

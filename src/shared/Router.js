@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
 import Home from "../pages/Home";
 import FanLetter from "../pages/FanLetter/FanLetter";
-import FanLetterDetail from "../pages/FanLetterDetail";
+import FanLetterDetail from "../pages/FanLetterDetail/FanLetterDetail";
 import { datas } from "./artists";
 
 const Router = () => {

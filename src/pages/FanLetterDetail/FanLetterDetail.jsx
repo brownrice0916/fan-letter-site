@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import {
+  StyledFanLetterDetailCard,
+  StyledFanLetterDetailContainer,
+} from "./FanLetterDetail.styled";
+import Avatar from "components/Avatar";
 
 const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
   const params = useParams();
@@ -51,19 +56,31 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
   };
 
   return (
-    <>
-      <div>{currentLetter.nickname}</div>
-      <textarea
-        value={letterContent}
-        type="content"
-        name="content"
-        onChange={(event) => {
-          setLetterContent(event.target.value);
-        }}
-      ></textarea>
-      <button onClick={handleEdit}>수정</button>
-      <button onClick={handleDelete}>삭제</button>
-    </>
+    <StyledFanLetterDetailContainer>
+      <StyledFanLetterDetailCard>
+        <div className="writer_wrap">
+          <div>
+            <Avatar fanLetter={currentLetter} />
+            <span>{currentLetter.nickname}</span>
+          </div>
+          <p>{new Date(currentLetter.createdAt).toLocaleString("ko-KR")}</p>
+        </div>
+        <p className="writed_to">To.{currentLetter.writedTo}</p>
+        <textarea
+          className="text_area"
+          value={letterContent}
+          type="content"
+          name="content"
+          onChange={(event) => {
+            setLetterContent(event.target.value);
+          }}
+        ></textarea>
+        <div className="btn_wrap">
+          <button onClick={handleEdit}>수정</button>
+          <button onClick={handleDelete}>삭제</button>
+        </div>
+      </StyledFanLetterDetailCard>
+    </StyledFanLetterDetailContainer>
   );
 };
 
