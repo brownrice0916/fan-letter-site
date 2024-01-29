@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
 export const StyledFanLetterDetailContainer = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  // margin: 0 auto;
   padding: 20px;
-
+  position: relative;
   //position: relative;
 `;
 
 export const StyledFanLetterDetailCard = styled.div`
+  margin: 0 auto;
   min-height: 500px;
   width: 600px;
   padding: 20px;
@@ -40,11 +42,14 @@ export const StyledFanLetterDetailCard = styled.div`
     font-size: 1rem;
     line-height: 1.5;
     border: 1px solid black;
+    overflow-wrap: break-word;
+    padding: 10px;
   }
   .text_area {
     width: 100%;
     height: 200px;
     font-size: 1rem;
+    padding: 10px;
     line-height: 1.5;
   }
   .btn_wrap {
@@ -55,5 +60,25 @@ export const StyledFanLetterDetailCard = styled.div`
     button:nth-child(2) {
       margin-right: 10px;
     }
+  }
+`;
+
+export const StyledCustomModal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  width: 300px;
+  height: 130px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  h2 {
+    margin-bottom: 20px;
+  }
+  button:nth-child(2) {
+    margin-right: 10px;
   }
 `;

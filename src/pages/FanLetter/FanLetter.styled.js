@@ -113,6 +113,15 @@ export const StyledFanLetterWrap = styled.ul`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  .noLetter {
+    text-align: center;
+    border: 1px solid black;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(77, 204, 198, 0.5);
+  }
 `;
 
 export const StyledFanLetterCard = styled.li`

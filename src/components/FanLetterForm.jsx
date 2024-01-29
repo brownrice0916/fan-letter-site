@@ -16,11 +16,21 @@ const FanLetterForm = ({
     >
       <div className="inputWrap">
         <label>닉네임:</label>
-        <input type="text" name="nickname" />
+        <input
+          placeholder="최대 20글자까지 작성할 수 있습니다."
+          maxLength={20}
+          type="text"
+          name="nickname"
+        />
       </div>
       <div className="inputWrap">
         <label>내용:</label>
-        <textarea type="content" name="content" />
+        <textarea
+          placeholder="최대 100자까지만 작성할 수 있습니다"
+          maxLength={100}
+          type="content"
+          name="content"
+        />
       </div>
       <div>
         {currentArtist && (
