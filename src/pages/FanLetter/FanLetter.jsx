@@ -5,6 +5,7 @@ import FanLetterForm from "components/FanLetterForm";
 import FanLetterCard from "components/FanLetterCard";
 import MembersProfile from "components/MembersProfile";
 import { v4 as uuidv4 } from "uuid";
+import { SaveLocalStorage } from "common/common";
 const FanLetter = ({
   artists,
   setArtists,
