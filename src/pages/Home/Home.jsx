@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import { datas } from "../../shared/artists";
-import {
-  StyledIntro,
-  StyledArtistList,
-} from "pages/FanLetter/FanLetter.styled";
+import { StyledArtistList, StyledIntro } from "./Home.styled";
 
 const Home = () => {
   return (
