@@ -28,6 +28,7 @@ const FanLetterDetailCard = ({
         <textarea
           className="text_area"
           value={letterContent}
+          maxLength={100}
           type="content"
           name="content"
           onChange={(event) => {

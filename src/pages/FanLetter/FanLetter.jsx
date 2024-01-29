@@ -32,6 +32,7 @@ const FanLetter = ({
       const content = e.target.content.value;
 
       if (nickname === "" || content === "") {
+        alert("닉네임과 내용은 필수 입력값입니다");
         return;
       }
 
@@ -80,6 +81,7 @@ const FanLetter = ({
         selectedMember={selectedMember}
         setSelectedMember={setSelectedMember}
       />
+
       <FanLetterCard
         selectedMember={selectedMember}
         currentArtist={currentArtist}
