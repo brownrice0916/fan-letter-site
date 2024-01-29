@@ -26,7 +26,7 @@ const FanLetter = ({
   );
 
   useEffect(() => {
-    setCurrentArtist(artists.find((item) => item.name === name));
+    setCurrentArtist(currentArtist);
     setSelectedMember((prev) => (prev ? prev : currentArtist.members[0]));
   }, [currentArtist, setSelectedMember, setCurrentArtist, name, artists]);
 
@@ -61,6 +61,7 @@ const FanLetter = ({
           return artist;
         }
       });
+      SaveLocalStorage("artists", changedArtists);
       setArtists(changedArtists);
 
       e.target.nickname.value = "";
@@ -88,10 +89,12 @@ const FanLetter = ({
         setSelectedMember={setSelectedMember}
       />
 
-      <FanLetterCard
-        selectedMember={selectedMember}
-        currentArtist={currentArtist}
-      />
+      {currentArtist && selectedMember && (
+        <FanLetterCard
+          selectedMember={selectedMember}
+          currentArtist={currentArtist}
+        />
+      )}
     </StyledFanPage>
   );
 };

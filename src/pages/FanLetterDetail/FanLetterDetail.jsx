@@ -8,6 +8,7 @@ import {
 import FanLetterDetailCard from "components/FanLetterDetailCard";
 import CustomButton from "components/CustomButton";
 import CustomModal from "components/CustomModal";
+import { SaveLocalStorage } from "common/common";
 
 const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
   const params = useParams();
@@ -51,7 +52,8 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
     );
 
     setArtists(newArtist);
-    navigate(`/fanletter/${currentArtist.id}`);
+    SaveLocalStorage(newArtist);
+    navigate(`/fanletter?search=${currentArtist.name}`);
   }, [
     artists,
     currentArtist,
@@ -78,8 +80,8 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
     });
 
     setArtists(newArtist);
-
-    navigate(`/fanletter/${currentArtist.id}`);
+    SaveLocalStorage("artists", newArtist);
+    navigate(`/fanletter?search=${currentArtist.name}`);
   }, [artists, currentArtist, navigate, params.id, setArtists]);
 
   const openDeleteModal = useCallback(() => {
