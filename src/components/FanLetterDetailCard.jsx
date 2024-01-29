@@ -8,9 +8,9 @@ const FanLetterDetailCard = ({
   isEditing,
   letterContent,
   setLetterContent,
-  handleDelete,
+  openDeleteModal,
   handleEdit,
-  handleEditSuccess,
+  openEditModal,
 }) => {
   return (
     <StyledFanLetterDetailCard>
@@ -36,11 +36,9 @@ const FanLetterDetailCard = ({
         ></textarea>
       )}
       <div className="btn_wrap">
-        {!isEditing && <CustomButton onClick={handleDelete} name="삭제" />}
+        {!isEditing && <CustomButton onClick={openDeleteModal} name="삭제" />}
         {!isEditing && <CustomButton onClick={handleEdit} name="수정" />}
-        {isEditing && (
-          <CustomButton onClick={handleEditSuccess} name="수정완료" />
-        )}
+        {isEditing && <CustomButton onClick={openEditModal} name="수정완료" />}
       </div>
     </StyledFanLetterDetailCard>
   );
