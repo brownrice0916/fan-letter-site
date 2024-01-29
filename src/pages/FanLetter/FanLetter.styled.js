@@ -49,7 +49,7 @@ export const StyledMemberCard = styled.li`
     border-radius: 100%;
     overflow: hidden;
     border: ${(props) =>
-      props.$isSelected ? "5px solid Yellow" : "5px solid #ededed"};
+      props.$isSelected ? "5px solid #4dccc6" : "5px solid #ededed"};
   }
   img {
     width: 100%;
@@ -136,6 +136,7 @@ export const StyledFanLetterCard = styled.li`
     }
 
     .contents {
+      margin-left: 10px;
       flex: 3;
       // background-color: black;
       overflow: hidden;
@@ -152,7 +153,7 @@ export const StyledFanLetterCard = styled.li`
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        background-color: rgba(115, 203, 225, 0.5);
+        background-color: rgba(77, 204, 198, 0.5);
 
         margin-top: 20px;
         padding: 20px;

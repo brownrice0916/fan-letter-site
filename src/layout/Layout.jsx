@@ -17,7 +17,7 @@ const StyledHeader = styled.header`
   }
   > a {
     text-decoration: none;
-    color: rgb(115, 203, 225);
+    color: #4dccc6;
     font-weight: 800;
     font-size: 2rem;
   }

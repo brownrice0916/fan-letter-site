@@ -28,4 +28,4 @@ const Avatar = ({ fanLetter }) => {
   );
 };
 
-export default Avatar;
+export default React.memo(Avatar);

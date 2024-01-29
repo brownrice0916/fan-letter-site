@@ -23,12 +23,12 @@ export const StyledButton = styled.button`
   }
 `;
 
-const CustomButton = ({ name }) => {
+const CustomButton = ({ name, onClick }) => {
   return (
-    <StyledButton className="submit_btn" type="submit">
+    <StyledButton onClick={onClick} className="submit_btn" type="submit">
       <span>{name}</span>
     </StyledButton>
   );
 };
 
-export default CustomButton;
+export default React.memo(CustomButton);

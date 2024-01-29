@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  StyledFanLetterDetailCard,
-  StyledFanLetterDetailContainer,
-} from "./FanLetterDetail.styled";
-import Avatar from "components/Avatar";
+import { StyledFanLetterDetailContainer } from "./FanLetterDetail.styled";
+
+import FanLetterDetailCard from "components/FanLetterDetailCard";
 
 const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const currentLetter = currentArtist.fanLetters.find((item) => {
-    return item.id === parseInt(params.id);
-  });
+  const [isEditing, setIsEditing] = useState(false);
+
+  const currentLetter = useMemo(
+    () =>
+      currentArtist.fanLetters.find((item) => {
+        return item.id === parseInt(params.id);
+      }),
+    [currentArtist.fanLetters, params.id]
+  );
 
   const [letterContent, setLetterContent] = useState(currentLetter.content);
 
-  const handleEdit = () => {
-    console.log(letterContent);
+  const handleEdit = useCallback(() => {
+    setIsEditing(true);
+  }, [setIsEditing]);
+
+  const handleEditSuccess = useCallback(() => {
     const newArtist = artists.map((artist) =>
       artist.id === currentArtist.id
         ? {
@@ -30,12 +37,11 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
           }
         : artist
     );
-    console.log("newArtist", newArtist);
     setArtists(newArtist);
     navigate(`/fanletter/${currentArtist.id}`);
-  };
+  }, [artists, currentArtist, letterContent, navigate, params.id, setArtists]);
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     const newArtist = artists.map((artist) => {
       //console.log(artist, currentArtist);
       if (artist.id === currentArtist.id) {
@@ -53,33 +59,19 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
     setArtists(newArtist);
 
     navigate(`/fanletter/${currentArtist.id}`);
-  };
+  }, [artists, currentArtist, navigate, params.id, setArtists]);
 
   return (
     <StyledFanLetterDetailContainer>
-      <StyledFanLetterDetailCard>
-        <div className="writer_wrap">
-          <div>
-            <Avatar fanLetter={currentLetter} />
-            <span>{currentLetter.nickname}</span>
-          </div>
-          <p>{new Date(currentLetter.createdAt).toLocaleString("ko-KR")}</p>
-        </div>
-        <p className="writed_to">To.{currentLetter.writedTo}</p>
-        <textarea
-          className="text_area"
-          value={letterContent}
-          type="content"
-          name="content"
-          onChange={(event) => {
-            setLetterContent(event.target.value);
-          }}
-        ></textarea>
-        <div className="btn_wrap">
-          <button onClick={handleEdit}>수정</button>
-          <button onClick={handleDelete}>삭제</button>
-        </div>
-      </StyledFanLetterDetailCard>
+      <FanLetterDetailCard
+        currentLetter={currentLetter}
+        isEditing={isEditing}
+        letterContent={letterContent}
+        setLetterContent={setLetterContent}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        handleEditSuccess={handleEditSuccess}
+      />
     </StyledFanLetterDetailContainer>
   );
 };

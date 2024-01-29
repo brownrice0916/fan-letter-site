@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout from "../layout/Layout";
 import Home from "../pages/Home";
 import FanLetter from "../pages/FanLetter/FanLetter";
 import FanLetterDetail from "../pages/FanLetterDetail/FanLetterDetail";
