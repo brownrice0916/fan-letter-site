@@ -20,7 +20,7 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
   const currentLetter = useMemo(
     () =>
       currentArtist.fanLetters.find((item) => {
-        return item.id === parseInt(params.id);
+        return item.id === params.id;
       }),
     [currentArtist.fanLetters, params.id]
   );
@@ -43,7 +43,7 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
         ? {
             ...artist,
             fanLetters: artist.fanLetters.map((letter) =>
-              letter.id === parseInt(params.id)
+              letter.id === params.id
                 ? { ...letter, content: letterContent }
                 : letter
             ),
@@ -71,7 +71,7 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
         return {
           ...artist,
           fanLetters: artist.fanLetters.filter(
-            (fanLetter) => fanLetter.id !== parseInt(params.id)
+            (fanLetter) => fanLetter.id !== params.id
           ),
         };
       }

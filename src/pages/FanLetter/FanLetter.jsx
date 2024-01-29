@@ -4,7 +4,7 @@ import { StyledIntro, StyledFanPage } from "./FanLetter.styled";
 import FanLetterForm from "components/FanLetterForm";
 import FanLetterCard from "components/FanLetterCard";
 import MembersProfile from "components/MembersProfile";
-
+import { v4 as uuidv4 } from "uuid";
 const FanLetter = ({
   artists,
   setArtists,
@@ -43,7 +43,7 @@ const FanLetter = ({
             fanLetters: [
               ...artist.fanLetters,
               {
-                id: artist.fanLetters[artist.fanLetters.length - 1].id + 1,
+                id: uuidv4(),
                 nickname,
                 content,
                 writedTo: selectedMember.name,

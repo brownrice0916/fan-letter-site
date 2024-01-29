@@ -41,7 +41,7 @@ const FanLetterForm = ({
                 name="recipient"
                 value={selectedMember ? selectedMember.id : 0}
                 onChange={(e) => {
-                  const selectedMemberId = parseInt(e.target.value);
+                  const selectedMemberId = e.target.value;
                   const selectedMember = currentArtist.members.find(
                     (member) => member.id === selectedMemberId
                   );
