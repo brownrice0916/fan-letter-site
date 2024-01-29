@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../layout/Layout";
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 import FanLetter from "../pages/FanLetter/FanLetter";
 import FanLetterDetail from "../pages/FanLetterDetail/FanLetterDetail";
 import { datas } from "./artists";

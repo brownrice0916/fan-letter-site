@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { datas } from "../shared/artists";
 
-const StyledIntro = styled.section`
+export const StyledIntro = styled.section`
   background-color: black;
   height: 300px;
   color: white;
@@ -13,7 +11,7 @@ const StyledIntro = styled.section`
   margin-bottom: 30px;
 `;
 
-const StyledArtistList = styled.section`
+export const StyledArtistList = styled.section`
   padding: 10px;
   max-width: 1200px;
   margin: 0 auto;
@@ -58,30 +56,3 @@ const StyledArtistList = styled.section`
     }
   }
 `;
-
-const Home = () => {
-  return (
-    <>
-      <StyledIntro>
-        <h1>최애에게 편지를 보내보아요</h1>
-      </StyledIntro>
-      <StyledArtistList>
-        <h1>Artists</h1>
-        <ul>
-          {datas.map((item) => (
-            <li key={item.id}>
-              <Link to={`/fanletter/${item.id}`}>
-                <div>
-                  <img src={item.img} alt="뉴진스" />
-                </div>
-                <p>{item.name}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </StyledArtistList>
-    </>
-  );
-};
-
-export default Home;
