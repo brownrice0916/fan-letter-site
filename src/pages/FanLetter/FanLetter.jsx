@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { StyledIntro, StyledFanPage } from "./FanLetter.styled";
 import FanLetterForm from "components/FanLetterForm";
 import FanLetterCard from "components/FanLetterCard";
 import MembersProfile from "components/MembersProfile";
 import { v4 as uuidv4 } from "uuid";
 import { SaveLocalStorage } from "common/common";
+
 const FanLetter = ({
   artists,
   setArtists,
@@ -13,17 +14,21 @@ const FanLetter = ({
   setSelectedMember,
   setCurrentArtist,
 }) => {
-  const params = useParams();
+  //const params = useParams();
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const name = queryParams.get("search");
+  console.log(name);
   const currentArtist = useMemo(
-    () => artists.find((item) => item.id === parseInt(params.id)),
-    [artists, params.id]
+    () => artists.find((item) => item.name === name),
+    [artists, name]
   );
 
   useEffect(() => {
-    setCurrentArtist(artists.find((item) => item.id === parseInt(params.id)));
+    setCurrentArtist(artists.find((item) => item.name === name));
     setSelectedMember((prev) => (prev ? prev : currentArtist.members[0]));
-  }, [currentArtist, setSelectedMember, setCurrentArtist, params.id, artists]);
+  }, [currentArtist, setSelectedMember, setCurrentArtist, name, artists]);
 
   const handleSubmit = useCallback(
     (e) => {
