@@ -67,7 +67,7 @@ const FanLetter = ({
 
   return (
     <StyledFanPage>
-      <StyledIntro img={currentArtist.img}>
+      <StyledIntro $img={currentArtist.img}>
         <h1>{currentArtist.name}</h1>
       </StyledIntro>
       <MembersProfile

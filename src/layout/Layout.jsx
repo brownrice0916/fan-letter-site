@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledLayout = styled.div`
-  background-color: #ededed;
+  //background-color: #ededed;
   height: 100vh;
 `;
 const StyledHeader = styled.header`

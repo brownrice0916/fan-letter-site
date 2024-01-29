@@ -13,7 +13,6 @@ const FanLetterCard = ({ selectedMember, currentArtist }) => {
       (fanLetter) => fanLetter.writedTo === selectedMember.name
     );
 
-  console.log(currentLetters);
   return (
     <StyledFanLetterWrap>
       {currentLetters && currentLetters.length === 0 && (

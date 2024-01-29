@@ -29,7 +29,6 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
 
   const handleEdit = useCallback(() => {
     setIsEditing(true);
-    console.log(currentLetter, letterContent);
   }, [setIsEditing]);
 
   const handleEditSuccess = useCallback(() => {

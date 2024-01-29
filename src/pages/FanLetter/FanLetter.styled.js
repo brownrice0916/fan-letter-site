@@ -5,7 +5,7 @@ export const StyledFanPage = styled.section`
 `;
 
 export const StyledIntro = styled.section`
-  background-image: url(${(props) => props.img});
+  background-image: url(${(props) => props.$img});
   height: 350px;
   background-size: contain;
   background-repeat: no-repeat;
