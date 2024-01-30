@@ -6,7 +6,7 @@ const FanLetterForm = ({
   handleSubmit,
   currentArtist,
   selectedMember,
-  setSelectedMember,
+  setSelectedMemberId,
 }) => {
   return (
     <StyledForm
@@ -41,11 +41,7 @@ const FanLetterForm = ({
                 name="recipient"
                 value={selectedMember ? selectedMember.id : 0}
                 onChange={(e) => {
-                  const selectedMemberId = e.target.value;
-                  const selectedMember = currentArtist.members.find(
-                    (member) => member.id === selectedMemberId
-                  );
-                  setSelectedMember(selectedMember);
+                  setSelectedMemberId(e.target.value);
                 }}
               >
                 {currentArtist.members.map((member) => (

@@ -23,7 +23,7 @@ const FanLetterDetailCard = ({
       </div>
       <p className="writed_to">To.{currentLetter.writedTo}</p>
       {!isEditing ? (
-        <article>{letterContent}</article>
+        <article style={{ whiteSpace: "pre-wrap" }}>{letterContent}</article>
       ) : (
         <textarea
           className="text_area"

@@ -25,7 +25,16 @@ const FanLetterCard = ({ selectedMember, currentArtist }) => {
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .map((fanLetter) => (
             <StyledFanLetterCard key={fanLetter.id}>
-              <Link to={`/fanletterDetail/${fanLetter.id}`}>
+              {/* navigate(`/fanletter?search=${currentArtist.name}`); */}
+              <Link
+                to={
+                  `/fanletter-detail?` +
+                  new URLSearchParams({
+                    search: currentArtist.name,
+                    fanLetterId: fanLetter.id,
+                  })
+                }
+              >
                 <Avatar fanLetter={fanLetter}></Avatar>
                 <div className="contents">
                   <h3>{fanLetter.nickname}</h3>

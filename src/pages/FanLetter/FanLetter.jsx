@@ -1,34 +1,39 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { StyledIntro, StyledFanPage } from "./FanLetter.styled";
 import FanLetterForm from "components/FanLetterForm";
 import FanLetterCard from "components/FanLetterCard";
 import MembersProfile from "components/MembersProfile";
 import { v4 as uuidv4 } from "uuid";
-import { SaveLocalStorage } from "common/common";
+import { saveLocalStorage } from "common/common";
 
 const FanLetter = ({
   artists,
   setArtists,
-  selectedMember,
-  setSelectedMember,
-  setCurrentArtist,
+  selectedMemberId,
+  setSelectedMemberId,
 }) => {
   //const params = useParams();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const name = queryParams.get("search");
-  console.log(name);
+
   const currentArtist = useMemo(
     () => artists.find((item) => item.name === name),
     [artists, name]
   );
 
   useEffect(() => {
-    setCurrentArtist(currentArtist);
-    setSelectedMember((prev) => (prev ? prev : currentArtist.members[0]));
-  }, [currentArtist, setSelectedMember, setCurrentArtist, name, artists]);
+    // fanLetter page 진입 시 selectedMemberId 초기화
+    setSelectedMemberId((prev) => (prev ? prev : currentArtist.members[0].id));
+  }, [currentArtist, setSelectedMemberId]);
+
+  const selectedMember = useMemo(() => {
+    return currentArtist.members.find(
+      (member) => member.id === selectedMemberId
+    );
+  }, [currentArtist, selectedMemberId]);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -52,7 +57,7 @@ const FanLetter = ({
                 id: uuidv4(),
                 nickname,
                 content,
-                writedTo: selectedMember.name,
+                writedTo: selectedMember?.name ?? "",
                 createdAt: new Date(),
               },
             ],
@@ -61,7 +66,7 @@ const FanLetter = ({
           return artist;
         }
       });
-      SaveLocalStorage("artists", changedArtists);
+      saveLocalStorage("artists", changedArtists);
       setArtists(changedArtists);
 
       e.target.nickname.value = "";
@@ -80,13 +85,13 @@ const FanLetter = ({
       <MembersProfile
         currentArtist={currentArtist}
         selectedMember={selectedMember}
-        setSelectedMember={setSelectedMember}
+        setSelectedMemberId={setSelectedMemberId}
       />
       <FanLetterForm
         handleSubmit={handleSubmit}
         currentArtist={currentArtist}
         selectedMember={selectedMember}
-        setSelectedMember={setSelectedMember}
+        setSelectedMemberId={setSelectedMemberId}
       />
 
       {currentArtist && selectedMember && (

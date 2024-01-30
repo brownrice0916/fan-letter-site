@@ -5,7 +5,7 @@ import MemberProfile from "./MemberProfile";
 const MembersProfile = ({
   currentArtist,
   selectedMember,
-  setSelectedMember,
+  setSelectedMemberId,
 }) => {
   return (
     <StyledMembers>
@@ -15,7 +15,7 @@ const MembersProfile = ({
             key={member.id}
             member={member}
             selectedMember={selectedMember}
-            setSelectedMember={setSelectedMember}
+            setSelectedMemberId={setSelectedMemberId}
           />
         ))}
       </ul>

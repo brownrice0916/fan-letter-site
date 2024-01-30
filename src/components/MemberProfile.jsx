@@ -1,13 +1,13 @@
 import { StyledMemberCard } from "pages/FanLetter/FanLetter.styled";
 import React from "react";
 
-const MemberProfile = ({ member, selectedMember, setSelectedMember }) => {
+const MemberProfile = ({ member, selectedMember, setSelectedMemberId }) => {
   return (
     <StyledMemberCard
       key={member.id}
       $isSelected={selectedMember ? member.id === selectedMember.id : false}
       onClick={() => {
-        setSelectedMember(member);
+        setSelectedMemberId(member.id);
         // selectMember(member);
       }}
     >

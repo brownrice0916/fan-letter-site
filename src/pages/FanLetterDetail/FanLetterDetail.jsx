@@ -1,32 +1,40 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import {
-  StyledCustomModal,
-  StyledFanLetterDetailContainer,
-} from "./FanLetterDetail.styled";
+import { useNavigate, useLocation } from "react-router-dom";
+import { StyledFanLetterDetailContainer } from "./FanLetterDetail.styled";
 
 import FanLetterDetailCard from "components/FanLetterDetailCard";
-import CustomButton from "components/CustomButton";
 import CustomModal from "components/CustomModal";
-import { SaveLocalStorage } from "common/common";
+import { saveLocalStorage } from "common/common";
 
-const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
-  const params = useParams();
+const FanLetterDetail = ({ artists, setArtists }) => {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const currentLetter = useMemo(
-    () =>
-      currentArtist.fanLetters.find((item) => {
-        return item.id === params.id;
-      }),
-    [currentArtist.fanLetters, params.id]
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const name = queryParams.get("search");
+
+  const fanLetterId = queryParams.get("fanLetterId");
+
+  const currentArtist = useMemo(
+    () => artists.find((item) => item.name === name),
+    [artists, name]
   );
 
-  const [letterContent, setLetterContent] = useState(currentLetter.content);
+  const currentLetter = useMemo(
+    () =>
+      currentArtist.fanLetters.find((fanLetter) => {
+        return fanLetter.id === fanLetterId;
+      }),
+    [currentArtist.fanLetters, fanLetterId]
+  );
+
+  const [letterContent, setLetterContent] = useState(
+    currentLetter?.content || ""
+  );
 
   const handleEdit = useCallback(() => {
     setIsEditing(true);
@@ -43,7 +51,7 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
         ? {
             ...artist,
             fanLetters: artist.fanLetters.map((letter) =>
-              letter.id === params.id
+              letter.id === fanLetterId
                 ? { ...letter, content: letterContent }
                 : letter
             ),
@@ -52,37 +60,37 @@ const FanLetterDetail = ({ artists, setArtists, currentArtist }) => {
     );
 
     setArtists(newArtist);
-    SaveLocalStorage(newArtist);
+    saveLocalStorage(newArtist);
     navigate(`/fanletter?search=${currentArtist.name}`);
   }, [
     artists,
     currentArtist,
     letterContent,
     navigate,
-    params.id,
     setArtists,
     currentLetter,
+    fanLetterId,
   ]);
 
   const handleDelete = useCallback(() => {
-    const newArtist = artists.map((artist) => {
+    const newArtists = artists.map((artist) => {
       //console.log(artist, currentArtist);
       if (artist.id === currentArtist.id) {
         console.log(artist);
         return {
           ...artist,
           fanLetters: artist.fanLetters.filter(
-            (fanLetter) => fanLetter.id !== params.id
+            (fanLetter) => fanLetter.id !== fanLetterId
           ),
         };
       }
       return artist;
     });
 
-    setArtists(newArtist);
-    SaveLocalStorage("artists", newArtist);
+    setArtists(newArtists);
+    saveLocalStorage("artists", newArtists);
     navigate(`/fanletter?search=${currentArtist.name}`);
-  }, [artists, currentArtist, navigate, params.id, setArtists]);
+  }, [artists, currentArtist, navigate, fanLetterId, setArtists]);
 
   const openDeleteModal = useCallback(() => {
     setIsDeleteModalOpen(true);

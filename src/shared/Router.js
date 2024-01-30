@@ -1,50 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../layout/Layout";
 import Home from "../pages/Home/Home";
 import FanLetter from "../pages/FanLetter/FanLetter";
 import FanLetterDetail from "../pages/FanLetterDetail/FanLetterDetail";
 import { datas } from "./artists";
-import { GetLocalStorage, SaveLocalStorage } from "common/common";
+import { getLocalStorage, saveLocalStorage } from "common/common";
 
 const Router = () => {
   const [artists, setArtists] = useState(datas);
-  const [selectedMember, setSelectedMember] = useState();
-  const [currentArtist, setCurrentArtist] = useState(datas[0]);
+  // const [selectedMember, setSelectedMember] = useState();
+  const [selectedMemberId, setSelectedMemberId] = useState();
+
   useEffect(() => {
-    if (!GetLocalStorage("artists")) {
-      SaveLocalStorage("artists", datas);
+    if (!getLocalStorage("artists")) {
+      saveLocalStorage("artists", datas);
     } else {
-      setArtists(JSON.parse(GetLocalStorage("artists")));
+      setArtists(JSON.parse(getLocalStorage("artists")));
     }
   }, []);
 
   return (
     <BrowserRouter>
-      <Layout setSelectedMember={setSelectedMember}>
+      <Layout setSelectedMemberId={setSelectedMemberId}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
             path="/fanletter"
             element={
               <FanLetter
-                setSelectedMember={setSelectedMember}
-                selectedMember={selectedMember}
+                selectedMemberId={selectedMemberId}
+                setSelectedMemberId={setSelectedMemberId}
                 artists={artists}
                 setArtists={setArtists}
-                setCurrentArtist={setCurrentArtist}
               />
             }
           />
           <Route
-            path="/fanletterDetail/:id"
+            path="/fanletter-detail"
             element={
               <FanLetterDetail
-                selectedMember={selectedMember}
+                selectedMemberId={selectedMemberId}
+                setSelectedMemberId={setSelectedMemberId}
                 artists={artists}
                 setArtists={setArtists}
-                currentArtist={currentArtist}
-                setSelectedMember={setSelectedMember}
               />
             }
           />
