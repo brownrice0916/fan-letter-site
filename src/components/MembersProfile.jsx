@@ -2,11 +2,7 @@ import { StyledMembers } from "pages/FanLetter/FanLetter.styled";
 import React from "react";
 import MemberProfile from "./MemberProfile";
 
-const MembersProfile = ({
-  currentArtist,
-  selectedMember,
-  setSelectedMemberId,
-}) => {
+const MembersProfile = ({ currentArtist, selectedMember }) => {
   return (
     <StyledMembers>
       <ul>
@@ -15,7 +11,6 @@ const MembersProfile = ({
             key={member.id}
             member={member}
             selectedMember={selectedMember}
-            setSelectedMemberId={setSelectedMemberId}
           />
         ))}
       </ul>

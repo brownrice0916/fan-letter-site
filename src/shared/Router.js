@@ -6,6 +6,7 @@ import FanLetter from "../pages/FanLetter/FanLetter";
 import FanLetterDetail from "../pages/FanLetterDetail/FanLetterDetail";
 import { datas } from "./artists";
 import { getLocalStorage, saveLocalStorage } from "common/common";
+import { ArtistContext } from "contexts/ArtistsContext";
 
 const Router = () => {
   const [artists, setArtists] = useState(datas);
@@ -21,28 +22,17 @@ const Router = () => {
 
   return (
     <BrowserRouter>
-      <Layout setSelectedMemberId={setSelectedMemberId}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/fanletter"
-            element={
-              <FanLetter
-                selectedMemberId={selectedMemberId}
-                setSelectedMemberId={setSelectedMemberId}
-                artists={artists}
-                setArtists={setArtists}
-              />
-            }
-          />
-          <Route
-            path="/fanletter-detail"
-            element={
-              <FanLetterDetail artists={artists} setArtists={setArtists} />
-            }
-          />
-        </Routes>
-      </Layout>
+      <ArtistContext.Provider
+        value={{ artists, setArtists, selectedMemberId, setSelectedMemberId }}
+      >
+        <Layout setSelectedMemberId={setSelectedMemberId}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/fanletter" element={<FanLetter />} />
+            <Route path="/fanletter-detail" element={<FanLetterDetail />} />
+          </Routes>
+        </Layout>
+      </ArtistContext.Provider>
     </BrowserRouter>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { StyledIntro, StyledFanPage } from "./FanLetter.styled";
 import FanLetterForm from "components/FanLetterForm";
@@ -6,18 +6,19 @@ import FanLetterCard from "components/FanLetterCard";
 import MembersProfile from "components/MembersProfile";
 import { v4 as uuidv4 } from "uuid";
 import { saveLocalStorage } from "common/common";
+import { ArtistContext } from "contexts/ArtistsContext";
 
-const FanLetter = ({
-  artists,
-  setArtists,
-  selectedMemberId,
-  setSelectedMemberId,
-}) => {
+const FanLetter = () => {
   //const params = useParams();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const artistName = queryParams.get("search");
+
+  const artists = useContext(ArtistContext).artists;
+  const setArtists = useContext(ArtistContext).setArtists;
+  const selectedMemberId = useContext(ArtistContext).selectedMemberId;
+  const setSelectedMemberId = useContext(ArtistContext).setSelectedMemberId;
 
   const currentArtist = useMemo(
     () => artists.find((item) => item.name === artistName),
@@ -85,13 +86,11 @@ const FanLetter = ({
       <MembersProfile
         currentArtist={currentArtist}
         selectedMember={selectedMember}
-        setSelectedMemberId={setSelectedMemberId}
       />
       <FanLetterForm
         handleSubmit={handleSubmit}
         currentArtist={currentArtist}
         selectedMember={selectedMember}
-        setSelectedMemberId={setSelectedMemberId}
       />
 
       {currentArtist && selectedMember && (

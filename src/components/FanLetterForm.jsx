@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyledForm } from "pages/FanLetter/FanLetter.styled";
 import CustomButton from "./CustomButton";
+import { ArtistContext } from "contexts/ArtistsContext";
 
-const FanLetterForm = ({
-  handleSubmit,
-  currentArtist,
-  selectedMember,
-  setSelectedMemberId,
-}) => {
+const FanLetterForm = ({ handleSubmit, currentArtist, selectedMember }) => {
+  const setSelectedMemberId = useContext(ArtistContext).setSelectedMemberId;
   return (
     <StyledForm
       onSubmit={(e) => {

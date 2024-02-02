@@ -1,12 +1,16 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { StyledFanLetterDetailContainer } from "./FanLetterDetail.styled";
 
 import FanLetterDetailCard from "components/FanLetterDetailCard";
 import CustomModal from "components/CustomModal";
 import { saveLocalStorage } from "common/common";
+import { ArtistContext } from "contexts/ArtistsContext";
 
-const FanLetterDetail = ({ artists, setArtists }) => {
+const FanLetterDetail = () => {
+  const artists = useContext(ArtistContext).artists;
+  const setArtists = useContext(ArtistContext).setArtists;
+
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);

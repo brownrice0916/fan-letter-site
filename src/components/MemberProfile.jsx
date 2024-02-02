@@ -1,7 +1,9 @@
+import { ArtistContext } from "contexts/ArtistsContext";
 import { StyledMemberCard } from "pages/FanLetter/FanLetter.styled";
-import React from "react";
+import React, { useContext } from "react";
 
-const MemberProfile = ({ member, selectedMember, setSelectedMemberId }) => {
+const MemberProfile = ({ member, selectedMember }) => {
+  const setSelectedMemberId = useContext(ArtistContext).setSelectedMemberId;
   return (
     <StyledMemberCard
       key={member.id}
