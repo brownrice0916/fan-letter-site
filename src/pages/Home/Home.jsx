@@ -6,7 +6,6 @@ const Home = () => {
   return (
     <>
       <StyledIntro>
-        {/* //my-component?name=John&age=25 */}
         <h1>최애에게 편지를 보내보아요</h1>
       </StyledIntro>
       <StyledArtistList>

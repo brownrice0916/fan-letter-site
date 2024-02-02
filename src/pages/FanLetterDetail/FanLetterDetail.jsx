@@ -1,13 +1,18 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { StyledFanLetterDetailContainer } from "./FanLetterDetail.styled";
-
 import FanLetterDetailCard from "components/FanLetterDetailCard";
 import CustomModal from "components/CustomModal";
-import { saveLocalStorage } from "common/common";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteFanLetter,
+  editFanLetter,
+} from "../../redux/modules/artistsReducer";
 
-const FanLetterDetail = ({ artists, setArtists }) => {
+const FanLetterDetail = () => {
   const navigate = useNavigate();
+  const artists = useSelector((state) => state.artistsReducer);
+  const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -46,51 +51,22 @@ const FanLetterDetail = ({ artists, setArtists }) => {
       setIsEditModalOpen(false);
       return;
     }
-    const changedArtists = artists.map((artist) =>
-      artist.id === currentArtist.id
-        ? {
-            ...artist,
-            fanLetters: artist.fanLetters.map((letter) =>
-              letter.id === fanLetterId
-                ? { ...letter, content: letterContent }
-                : letter
-            ),
-          }
-        : artist
-    );
+    dispatch(editFanLetter(currentArtist.id, fanLetterId, letterContent));
 
-    setArtists(changedArtists);
-    saveLocalStorage(changedArtists);
     navigate(`/fanletter?search=${currentArtist.name}`);
   }, [
-    artists,
     currentArtist,
+    currentLetter,
+    dispatch,
+    fanLetterId,
     letterContent,
     navigate,
-    setArtists,
-    currentLetter,
-    fanLetterId,
   ]);
 
   const handleDelete = useCallback(() => {
-    const changedArtists = artists.map((artist) => {
-      //console.log(artist, currentArtist);
-      if (artist.id === currentArtist.id) {
-        console.log(artist);
-        return {
-          ...artist,
-          fanLetters: artist.fanLetters.filter(
-            (fanLetter) => fanLetter.id !== fanLetterId
-          ),
-        };
-      }
-      return artist;
-    });
-
-    setArtists(changedArtists);
-    saveLocalStorage("artists", changedArtists);
+    dispatch(deleteFanLetter(currentArtist.id, fanLetterId));
     navigate(`/fanletter?search=${currentArtist.name}`);
-  }, [artists, currentArtist, navigate, fanLetterId, setArtists]);
+  }, [currentArtist, dispatch, fanLetterId, navigate]);
 
   const openDeleteModal = useCallback(() => {
     setIsDeleteModalOpen(true);

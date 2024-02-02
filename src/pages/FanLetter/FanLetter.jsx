@@ -4,16 +4,12 @@ import { StyledIntro, StyledFanPage } from "./FanLetter.styled";
 import FanLetterForm from "components/FanLetterForm";
 import FanLetterCard from "components/FanLetterCard";
 import MembersProfile from "components/MembersProfile";
-import { v4 as uuidv4 } from "uuid";
-import { saveLocalStorage } from "common/common";
+import { useDispatch, useSelector } from "react-redux";
+import { addFanLetter } from "../../redux/modules/artistsReducer";
 
-const FanLetter = ({
-  artists,
-  setArtists,
-  selectedMemberId,
-  setSelectedMemberId,
-}) => {
-  //const params = useParams();
+const FanLetter = ({ selectedMemberId, setSelectedMemberId }) => {
+  const artists = useSelector((state) => state.artistsReducer);
+  const dispatch = useDispatch();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -47,34 +43,19 @@ const FanLetter = ({
         return;
       }
 
-      const changedArtists = artists.map((artist) => {
-        if (artist.id === currentArtist.id) {
-          return {
-            ...artist,
-            fanLetters: [
-              ...artist.fanLetters,
-              {
-                id: uuidv4(),
-                nickname,
-                content,
-                writedTo: selectedMember?.name ?? "",
-                createdAt: new Date(),
-              },
-            ],
-          };
-        } else {
-          return artist;
-        }
-      });
-      saveLocalStorage("artists", changedArtists);
-      setArtists(changedArtists);
+      dispatch(
+        addFanLetter(
+          currentArtist.id,
+          nickname,
+          content,
+          selectedMember?.name ?? ""
+        )
+      );
 
       e.target.nickname.value = "";
       e.target.content.value = "";
-
-      // 선택된 멤버의 fanLetters 업데이트
     },
-    [artists, currentArtist, selectedMember, setArtists]
+    [currentArtist, dispatch, selectedMember]
   );
 
   return (
