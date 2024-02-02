@@ -15,13 +15,13 @@ const FanLetterDetail = ({ artists, setArtists }) => {
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const name = queryParams.get("search");
+  const artistName = queryParams.get("search");
 
   const fanLetterId = queryParams.get("fanLetterId");
 
   const currentArtist = useMemo(
-    () => artists.find((item) => item.name === name),
-    [artists, name]
+    () => artists.find((item) => item.name === artistName),
+    [artists, artistName]
   );
 
   const currentLetter = useMemo(
@@ -46,7 +46,7 @@ const FanLetterDetail = ({ artists, setArtists }) => {
       setIsEditModalOpen(false);
       return;
     }
-    const newArtist = artists.map((artist) =>
+    const changedArtists = artists.map((artist) =>
       artist.id === currentArtist.id
         ? {
             ...artist,
@@ -59,8 +59,8 @@ const FanLetterDetail = ({ artists, setArtists }) => {
         : artist
     );
 
-    setArtists(newArtist);
-    saveLocalStorage(newArtist);
+    setArtists(changedArtists);
+    saveLocalStorage(changedArtists);
     navigate(`/fanletter?search=${currentArtist.name}`);
   }, [
     artists,
@@ -73,7 +73,7 @@ const FanLetterDetail = ({ artists, setArtists }) => {
   ]);
 
   const handleDelete = useCallback(() => {
-    const newArtists = artists.map((artist) => {
+    const changedArtists = artists.map((artist) => {
       //console.log(artist, currentArtist);
       if (artist.id === currentArtist.id) {
         console.log(artist);
@@ -87,8 +87,8 @@ const FanLetterDetail = ({ artists, setArtists }) => {
       return artist;
     });
 
-    setArtists(newArtists);
-    saveLocalStorage("artists", newArtists);
+    setArtists(changedArtists);
+    saveLocalStorage("artists", changedArtists);
     navigate(`/fanletter?search=${currentArtist.name}`);
   }, [artists, currentArtist, navigate, fanLetterId, setArtists]);
 
@@ -118,6 +118,7 @@ const FanLetterDetail = ({ artists, setArtists }) => {
           openDeleteModal={openDeleteModal}
           handleEdit={handleEdit}
           openEditModal={openEditModal}
+          isEditModalOpen={isEditModalOpen}
         />
         {isDeleteModalOpen && (
           <CustomModal

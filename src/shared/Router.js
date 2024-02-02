@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../layout/Layout";
 import Home from "../pages/Home/Home";
@@ -9,7 +9,6 @@ import { getLocalStorage, saveLocalStorage } from "common/common";
 
 const Router = () => {
   const [artists, setArtists] = useState(datas);
-  // const [selectedMember, setSelectedMember] = useState();
   const [selectedMemberId, setSelectedMemberId] = useState();
 
   useEffect(() => {
@@ -39,12 +38,7 @@ const Router = () => {
           <Route
             path="/fanletter-detail"
             element={
-              <FanLetterDetail
-                selectedMemberId={selectedMemberId}
-                setSelectedMemberId={setSelectedMemberId}
-                artists={artists}
-                setArtists={setArtists}
-              />
+              <FanLetterDetail artists={artists} setArtists={setArtists} />
             }
           />
         </Routes>

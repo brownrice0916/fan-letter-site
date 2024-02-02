@@ -17,11 +17,11 @@ const FanLetter = ({
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const name = queryParams.get("search");
+  const artistName = queryParams.get("search");
 
   const currentArtist = useMemo(
-    () => artists.find((item) => item.name === name),
-    [artists, name]
+    () => artists.find((item) => item.name === artistName),
+    [artists, artistName]
   );
 
   useEffect(() => {

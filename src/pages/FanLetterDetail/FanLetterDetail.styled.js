@@ -41,7 +41,8 @@ export const StyledFanLetterDetailCard = styled.div`
     height: 200px;
     font-size: 1rem;
     line-height: 1.5;
-    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #ededed;
     overflow-wrap: break-word;
     padding: 10px;
   }
@@ -51,6 +52,7 @@ export const StyledFanLetterDetailCard = styled.div`
     font-size: 1rem;
     padding: 10px;
     line-height: 1.5;
+    border-radius: 10px;
   }
   .btn_wrap {
     display: flex;

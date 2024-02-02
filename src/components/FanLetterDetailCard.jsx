@@ -1,5 +1,5 @@
 import { StyledFanLetterDetailCard } from "pages/FanLetterDetail/FanLetterDetail.styled";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Avatar from "./Avatar";
 import CustomButton from "./CustomButton";
 
@@ -10,8 +10,24 @@ const FanLetterDetailCard = ({
   setLetterContent,
   openDeleteModal,
   handleEdit,
+  isEditModalOpen,
   openEditModal,
 }) => {
+  const textAreaRef = useRef(null);
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      if (!isEditModalOpen) {
+        textAreaRef.current.focus();
+        // Move the cursor to the end of the textarea content
+        textAreaRef.current.setSelectionRange(
+          letterContent.length,
+          letterContent.length
+        );
+      }
+    }
+  }, [textAreaRef, letterContent.length, isEditModalOpen, isEditing]);
+
   return (
     <StyledFanLetterDetailCard>
       <div className="writer_wrap">
@@ -26,6 +42,7 @@ const FanLetterDetailCard = ({
         <article style={{ whiteSpace: "pre-wrap" }}>{letterContent}</article>
       ) : (
         <textarea
+          ref={textAreaRef}
           className="text_area"
           value={letterContent}
           maxLength={100}
