@@ -38,7 +38,7 @@ const FanLetterForm = ({ handleSubmit, currentArtist, selectedMember }) => {
                 name="recipient"
                 value={selectedMember ? selectedMember.id : 0}
                 onChange={(e) => {
-                  setSelectedMemberId(e.target.value);
+                  setSelectedMemberId(Number(e.target.value));
                 }}
               >
                 {currentArtist.members.map((member) => (
